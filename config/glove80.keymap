@@ -23,11 +23,37 @@
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/outputs.h>
 
+#define QUERTY    0
+#define COLEMAK   1
+#define WINDOWS   2
+#define GAMING    3
+#define NUM       4
+#define FUN       5
+#define NAV       6
+#define SYM       7
+#define UTILS     8
+#define MACROS    9
+
+#define HYPER LS(LC(LA(LGUI)))
+
+// Screen Shot to Clip Board
+#define SCRSHT_CB LS(LC(LG(N3)))
+// Screen Shot to File
+#define SCRSHT_FI LS(LG(N3))
+// Screen Selection to Clip Board
+#define SLTSHT_CB LS(LC(LG(N4)))
+// Screen Selection to File
+#define SLTSHT_FI LS(LG(N4))
+// Lock Screen
+#define LOCK_SCR  LC(LG(Q))
+#define SLEEP_DIS LS(LC(LA(LG(K))))
+
+#define COMBO_TIMEOUT 300
 
 / {
     /* Glove80 system behavior & macros */
     behaviors {
-        // For the "layer" key, it'd nice to be able to use it as either a shift or a toggle.
+        // For the "layer" key, it would be nice to be able to use it as either a shift or a toggle.
         // Configure it as a tap dance, so the first tap (or hold) is a &mo and the second tap is a &to
         lower: tap_dance_0 {
             compatible = "zmk,behavior-tap-dance";
@@ -35,6 +61,33 @@
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&mo 1>, <&to 1>;
+        };
+
+        hm: homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_MODS";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <180>;
+            bindings = <&kp>, <&kp>;
+        };
+
+        cwm: caps_word_mods {
+            compatible = "zmk,behavior-caps-word";
+            label = "CUSTOM_CAPS";
+            #binding-cells = <0>;
+            continue-list = <BACKSPACE UNDERSCORE DEL MINUS UNDERSCORE>;
+        };
+
+        rlt: repeating_layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LAYER_TAP";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
+            global-quick-tap;
+            bindings = <&mo>, <&kp>;
         };
     };
 
@@ -101,17 +154,55 @@
         bindings = <&mo>, <&rgb_ug_status_macro>;
     };
 
-    /* Custom Defined Behaviors */
+    combos {
+        compatible = "zmk,combos";
+        combo_caps_word {
+            timeout-ms = <COMBO_TIMEOUT>;
+            key-positions = <46 59>;
+            bindings = <&cwm>;
+        };
+        combo_media_layer_left {
+            timeout-ms = <COMBO_TIMEOUT>;
+            key-positions = <60 35>;
+            bindings = <&mo UTILS>;
+        };
+        combo_media_layer_right {
+            timeout-ms = <COMBO_TIMEOUT>;
+            key-positions = <75 38>;
+            bindings = <&mo UTILS>;
+        };
+        combo_macro_layer_left {
+            timeout-ms = <COMBO_TIMEOUT>;
+            key-positions = <60 66>;
+            bindings = <&mo MACROS>;
+        };
+        combo_macro_layer_right {
+            timeout-ms = <COMBO_TIMEOUT>;
+            key-positions = <75 69>;
+            bindings = <&mo MACROS>;
+        };
+    };
 
 
     /* Automatically generated keymap */
     keymap {
         compatible = "zmk,keymap";
 
-
+tt
         base_layer {
             bindings = <
-     &kp F1    &kp F2   &kp F3    &kp F4     &kp F5                                                                                  &kp F6     &kp F7    &kp F8    &kp F9    &kp F10
+     &kp F1    &kp F2   &kp F3    &kp F4     &bootloader                                                                     &bootloader     &kp F7    &kp F8    &kp F9    &kp F10
+  &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
+    &kp TAB     &kp Q    &kp W     &kp E      &kp R   &kp T                                                                   &kp Y   &kp U      &kp I     &kp O     &kp P   &kp BSLH
+    &kp ESC     &kp A    &kp S     &kp D      &kp F   &kp G                                                                   &kp H   &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
+    &kp LSHFT     &kp Z    &kp X     &kp C      &kp V   &kp B  &kp LGUI  &kp LCTRL    &lower  &kp PG_UP  &kp RCTRL  &kp RGUI   &kp N   &kp M  &kp COMMA   &kp DOT  &kp FSLH  &kp RSHFT
+ &magic 2 0  &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT           &kp BSPC    &kp DEL  &kp LALT  &kp PG_DN    &kp RET  &kp SPACE          &kp UP   &kp DOWN  &kp LBKT  &kp RBKT  &magic 2 0
+            >;
+        };
+
+        layer_COLEMAK {
+            bindings = <
+     &kp F1    &kp F2   &kp F3    &kp F4     &bootloader                                                                     &bootloader     &kp F7    &kp F8    &kp F9    &kp F10
   &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
     &kp TAB     &kp Q    &kp W     &kp E      &kp R   &kp T                                                                   &kp Y   &kp U      &kp I     &kp O     &kp P   &kp BSLH
     &kp ESC     &kp A    &kp S     &kp D      &kp F   &kp G                                                                   &kp H   &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
@@ -120,18 +211,73 @@
             >;
         };
 
-        layer_Lower {
+        layer_WINDOWS {
             bindings = <
- &kp C_BRI_DN  &kp C_BRI_UP      &kp C_PREV      &kp C_NEXT         &kp C_PP                                                                                    &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP            &none  &kp PAUSE_BREAK
-       &trans         &none           &none           &none            &none   &kp HOME                                                   &kp LEFT_PARENTHESIS  &kp KP_NUM  &kp KP_EQUAL  &kp KP_SLASH  &kp KP_MULTIPLY  &kp PRINTSCREEN
-       &trans         &none           &none    &kp UP_ARROW            &none    &kp END                                                  &kp RIGHT_PARENTHESIS   &kp KP_N7     &kp KP_N8     &kp KP_N9     &kp KP_MINUS   &kp SCROLLLOCK
-       &trans         &none  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp PG_UP                                                            &kp PERCENT   &kp KP_N4     &kp KP_N5     &kp KP_N6      &kp KP_PLUS            &none
-       &trans     &kp K_APP           &none         &kp F11          &kp F12  &kp PG_DN  &trans  &trans   &to 0  &trans  &trans  &trans              &kp COMMA   &kp KP_N1     &kp KP_N2     &kp KP_N3     &kp KP_ENTER           &trans
-   &magic 2 0      &kp CAPS         &kp INS         &kp F11          &kp F12             &trans  &trans  &trans  &trans  &trans  &trans                          &kp KP_N0     &kp KP_N0    &kp KP_DOT     &kp KP_ENTER           &trans
+     &kp F1    &kp F2   &kp F3    &kp F4     &bootloader                                                                     &bootloader     &kp F7    &kp F8    &kp F9    &kp F10
+  &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
+    &kp TAB     &kp Q    &kp W     &kp E      &kp R   &kp T                                                                   &kp Y   &kp U      &kp I     &kp O     &kp P   &kp BSLH
+    &kp ESC     &kp A    &kp S     &kp D      &kp F   &kp G                                                                   &kp H   &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
+  &kp GRAVE     &kp Z    &kp X     &kp C      &kp V   &kp B  &kp LSHFT  &kp LCTRL    &lower  &kp LGUI  &kp RCTRL  &kp RSHFT   &kp N   &kp M  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
+ &magic 2 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT           &kp BSPC    &kp DEL  &kp LALT  &kp RALT    &kp RET  &kp SPACE          &kp UP   &kp DOWN  &kp LBKT  &kp RBKT  &kp PG_DN
             >;
         };
 
-        layer_Magic {
+        layer_GAMING {
+            bindings = <
+     &kp F1    &kp F2   &kp F3    &kp F4     &bootloader                                                                     &bootloader     &kp F7    &kp F8    &kp F9    &kp F10
+  &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
+    &kp TAB     &kp Q    &kp W     &kp E      &kp R   &kp T                                                                   &kp Y   &kp U      &kp I     &kp O     &kp P   &kp BSLH
+    &kp ESC     &kp A    &kp S     &kp D      &kp F   &kp G                                                                   &kp H   &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
+  &kp GRAVE     &kp Z    &kp X     &kp C      &kp V   &kp B  &kp LSHFT  &kp LCTRL    &lower  &kp LGUI  &kp RCTRL  &kp RSHFT   &kp N   &kp M  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
+ &magic 2 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT           &kp BSPC    &kp DEL  &kp LALT  &kp RALT    &kp RET  &kp SPACE          &kp UP   &kp DOWN  &kp LBKT  &kp RBKT  &kp PG_DN
+            >;
+        };
+
+        layer_NUMPAD {
+            bindings = <
+     &kp F1    &kp F2   &kp F3    &kp F4     &bootloader                                                                     &bootloader     &kp F7    &kp F8    &kp F9    &kp F10
+  &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
+    &kp TAB     &kp Q    &kp W     &kp E      &kp R   &kp T                                                                   &kp Y   &kp U      &kp I     &kp O     &kp P   &kp BSLH
+    &kp ESC     &kp A    &kp S     &kp D      &kp F   &kp G                                                                   &kp H   &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
+  &kp GRAVE     &kp Z    &kp X     &kp C      &kp V   &kp B  &kp LSHFT  &kp LCTRL    &lower  &kp LGUI  &kp RCTRL  &kp RSHFT   &kp N   &kp M  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
+ &magic 2 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT           &kp BSPC    &kp DEL  &kp LALT  &kp RALT    &kp RET  &kp SPACE          &kp UP   &kp DOWN  &kp LBKT  &kp RBKT  &kp PG_DN
+            >;
+        };
+
+        layer_FUNCTION {
+            bindings = <
+     &kp F1    &kp F2   &kp F3    &kp F4     &bootloader                                                                     &bootloader     &kp F7    &kp F8    &kp F9    &kp F10
+  &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
+    &kp TAB     &kp Q    &kp W     &kp E      &kp R   &kp T                                                                   &kp Y   &kp U      &kp I     &kp O     &kp P   &kp BSLH
+    &kp ESC     &kp A    &kp S     &kp D      &kp F   &kp G                                                                   &kp H   &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
+  &kp GRAVE     &kp Z    &kp X     &kp C      &kp V   &kp B  &kp LSHFT  &kp LCTRL    &lower  &kp LGUI  &kp RCTRL  &kp RSHFT   &kp N   &kp M  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
+ &magic 2 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT           &kp BSPC    &kp DEL  &kp LALT  &kp RALT    &kp RET  &kp SPACE          &kp UP   &kp DOWN  &kp LBKT  &kp RBKT  &kp PG_DN
+            >;
+        };
+
+        layer_NAVIGATION {
+            bindings = <
+     &kp F1    &kp F2   &kp F3    &kp F4     &bootloader                                                                     &bootloader     &kp F7    &kp F8    &kp F9    &kp F10
+  &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
+    &kp TAB     &kp Q    &kp W     &kp E      &kp R   &kp T                                                                   &kp Y   &kp U      &kp I     &kp O     &kp P   &kp BSLH
+    &kp ESC     &kp A    &kp S     &kp D      &kp F   &kp G                                                                   &kp H   &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
+  &kp GRAVE     &kp Z    &kp X     &kp C      &kp V   &kp B  &kp LSHFT  &kp LCTRL    &lower  &kp LGUI  &kp RCTRL  &kp RSHFT   &kp N   &kp M  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
+ &magic 2 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT           &kp BSPC    &kp DEL  &kp LALT  &kp RALT    &kp RET  &kp SPACE          &kp UP   &kp DOWN  &kp LBKT  &kp RBKT  &kp PG_DN
+            >;
+        };
+
+        layer_SYMBOLS {
+            bindings = <
+     &kp F1    &kp F2   &kp F3    &kp F4     &bootloader                                                                     &bootloader     &kp F7    &kp F8    &kp F9    &kp F10
+  &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
+    &kp TAB     &kp Q    &kp W     &kp E      &kp R   &kp T                                                                   &kp Y   &kp U      &kp I     &kp O     &kp P   &kp BSLH
+    &kp ESC     &kp A    &kp S     &kp D      &kp F   &kp G                                                                   &kp H   &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
+  &kp GRAVE     &kp Z    &kp X     &kp C      &kp V   &kp B  &kp LSHFT  &kp LCTRL    &lower  &kp LGUI  &kp RCTRL  &kp RSHFT   &kp N   &kp M  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
+ &magic 2 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT           &kp BSPC    &kp DEL  &kp LALT  &kp RALT    &kp RET  &kp SPACE          &kp UP   &kp DOWN  &kp LBKT  &kp RBKT  &kp PG_DN
+            >;
+        };
+
+        layer_UTILS {
             bindings = <
   &bt BT_CLR            &none            &none            &none            &none                                                                                  &none   &none   &none   &none  &bt BT_CLR_ALL
        &none            &none            &none            &none            &none            &none                                                         &none   &none   &none   &none   &none           &none
