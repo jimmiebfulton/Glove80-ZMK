@@ -158,7 +158,7 @@
         compatible = "zmk,combos";
         combo_caps_word {
             timeout-ms = <COMBO_TIMEOUT>;
-            key-positions = <46 59>;
+            key-positions = <46 63>;
             bindings = <&cwm>;
         };
         combo_media_layer_left {
