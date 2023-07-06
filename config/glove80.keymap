@@ -275,24 +275,24 @@
 
         layer_SYMBOLS {
             bindings = <
-&none  &none  &none  &none &none                                                                               &none      &none      &none      &none     &none
-&none  &none  &none  &none &none  &none                                                             &none      &none      &none      &none      &none     &none
-&none &kp MINUS &kp PLUS &kp EXCL &kp EQUAL &kp UNDER                                               &none      &kp CARET  &kp COLON  &kp QMARK  &kp DLLR  &trans
-&none &kp LBKT  &kp LT  &kp GT &kp RBKT  &kp GRAVE                                                  &kp TILDE  &kp LBRC   &kp LPAR   &kp RPAR   &kp RBRC  &kp DQT
-&none &kp PRCNT  &kp STAR  &kp HASH  &kp AT  &trans      &none  &none  &none  &none &none  &none    &trans     &kp PIPE   &kp AMPS   &kp BSLH   &kp FSLH  &kp SQT
-&none  &none  &none  &none &none                         &none  &none  &none  &none &none  &none               &none      &none      &none      &none     &none
+&none  &none  &none  &none &none                                                                                &none      &none      &none      &none     &none
+&none  &none  &none  &none &none  &none                                                              &none      &none      &none      &none      &none     &none
+&none  &kp MINUS &kp PLUS &kp EXCL &kp EQUAL &kp UNDER                                               &none      &kp CARET  &kp COLON  &kp QMARK  &kp DLLR  &trans
+&none  &kp LBKT  &kp LT  &kp GT &kp RBKT  &kp GRAVE                                                  &kp TILDE  &kp LBRC   &kp LPAR   &kp RPAR   &kp RBRC  &kp DQT
+&none  &kp PRCNT  &kp STAR  &kp HASH  &kp AT  &trans      &none  &none  &none  &none &none  &none    &trans     &kp PIPE   &kp AMPS   &kp BSLH   &kp FSLH  &kp SQT
+&none  &none  &none  &none &none                          &none  &none  &none  &none &none  &none               &none      &none      &none      &none     &none
             >;
         };
 
         layer_UTILS {
-    bindings = <
-&none  &none            &none            &reset            &bootloader                                                                                       &bootloader   &reset   &none   &none  &bt BT_CLR
-&none  &bt BT_SEL 0     &bt BT_SEL 1  &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4                                                                         &none  &none         &none       &none         &none  &none
-&none  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_BRI  &rgb_ug RGB_TOG                                                                   &none  &bl BL_DEC    &bl BL_TOG  &bl BL_INC    &none  &none
-&none  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                                                                   &none  &kp C_PREV    &kp C_PP    &kp C_NEXT    &none  &bootloader
-&none  &none            &none            &none            &none            &none              &none   &none         &none   &none   &none           &none    &none  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &none  &reset
-&none  &none            &none            &none            &none                               &none   &kp LOCK_SCR  &none   &none   &kp SLEEP_DIS   &none           &none         &none       &none         &none  &none
-    >;
+            bindings = <
+  &bt BT_CLR            &none            &none            &none            &none                                                                                  &none   &none   &none   &none  &bt BT_CLR_ALL
+       &none            &none            &none            &none            &none            &none                                                         &none   &none   &none   &none   &none           &none
+      &trans  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_BRI  &rgb_ug RGB_TOG                                                         &none   &none   &none   &none   &none           &none
+ &bootloader  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                                                         &none   &none   &none   &none   &none     &bootloader
+      &reset            &none            &none            &none            &none            &none   &bt_2   &bt_3         &none   &none   &none   &none   &none   &none   &none   &none   &none          &reset
+       &none            &none            &none            &none            &none                    &bt_0   &bt_1  &out OUT_USB   &none   &none   &none           &none   &none   &none   &none           &none
+            >;
         };
 
         layer_MACROS {
