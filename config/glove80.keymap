@@ -53,7 +53,7 @@
 / {
     /* Glove80 system behavior & macros */
     behaviors {
-        #include "macros.dtsi"
+        //#include "macros.dtsi"
 
         // For the "layer" key, it would be nice to be able to use it as either a shift or a toggle.
         // Configure it as a tap dance, so the first tap (or hold) is a &mo and the second tap is a &to
@@ -297,12 +297,12 @@
 
         layer_MACROS {
             bindings = <
-&none  &none  &none  &none &none                                                             &none  &none  &none  &none &none
-&none  &none  &none  &none &none  &none                                               &none  &none  &none  &none &none  &none
-&none  &none  &none  &none &none  &none                                               &none  &none  &none  &none &none  &none
-&none  &none  &none  &m_r_tests &m_r_test  &none                                               &none  &none  &none  &m_r_debug &none  &none
-&none  &none  &none  &none &none  &none    &none  &none  &none  &none &none  &none    &none  &none  &none  &none &none  &none
-&none  &none  &none  &none &none           &none  &none  &none  &none &none  &none           &none  &none  &none  &none &none
+&none  &none  &none  &none &none                                                              &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none                                               &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none                                               &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none                                               &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none    &none  &none  &none  &none &none  &none    &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none           &none  &none  &none  &none &none  &none           &none  &none  &none  &none  &none
             >;
         };
 
